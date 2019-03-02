@@ -1,0 +1,21 @@
+# See https://github.com/netlify/netlify-cms/blob/master/example/config.yml
+backend:
+    name: test-repo
+    repo: master
+
+# display_url: https://netlify-cms-react-starter.netlify.com # This url will display in the top-right of the CMS
+media_folder: 'public/images/uploads' # Media files will be stored in the repo under static/images/uploads
+public_folder: '/images/uploads' # The src attribute for uploaded media will begin with /images/uploads
+
+collections: # A list of collections the CMS should be able to edit
+    - name: posts
+      label: Post
+      editor:
+          preview: true
+      folder: content/posts
+      slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+      create: true # Allow users to create new documents in this collection
+      fields: # The fields each document in this collection have
+          - { label: Title, name: title, widget: string }
+          - { label: Post Featured Image, name: postFeaturedImage, widget: image, required: false }
+          - { label: Content, name: body, widget: markdown }

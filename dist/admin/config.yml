@@ -8,14 +8,32 @@ media_folder: 'public/images/uploads' # Media files will be stored in the repo u
 public_folder: '/images/uploads' # The src attribute for uploaded media will begin with /images/uploads
 
 collections: # A list of collections the CMS should be able to edit
-    - name: posts
-      label: Post
+    - name: products
+      label: Product
       editor:
           preview: true
-      folder: content/posts
+      folder: content/products
       slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
       create: true # Allow users to create new documents in this collection
       fields: # The fields each document in this collection have
           - { label: Title, name: title, widget: string }
-          - { label: Post Featured Image, name: postFeaturedImage, widget: image, required: false }
+          - { label: Product Featured Image, name: productFeaturedImage, widget: image, required: false }
+          - label: "Regular Price"
+            name: "price-regular"
+            widget: "number"
+            default: 0000
+            valueType: "int"
+            min: 1000
+            max: 99999999999999
+            step: 1000
+            required: true
+          - label: "Old Price"
+            name: "price-old"
+            widget: "number"
+            default: 0000
+            valueType: "int"
+            min: 1000
+            max: 99999999999999
+            step: 1000
+            required: false
           - { label: Content, name: body, widget: markdown }

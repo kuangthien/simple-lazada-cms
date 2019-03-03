@@ -3,7 +3,7 @@ const axios = require('axios')
 // intermediate between client and github apiv4
 
 const URL = `https://api.github.com/graphql`
-const accessToken = 'daa6188758a55d5f62b4e57719d417d9f29947f6 '
+const accessToken = '70891ec7ce3170e21b9c79a2b5abbac3db0f48b8'
 const yamlFront = require('yaml-front-matter')
 
 const getProductDetailData = fileName => {
@@ -36,7 +36,16 @@ const getResponseBody = async () => {
     await (async function loop() {
         for (let i = 0; i < listPath.length; i++) {
             rs = await getProductDetailData(listPath[i].name)
-            list.push(rs)
+            list.push({
+                _id: listPath[i].name.replace('.md',''),
+                imageUrl: rs.productFeaturedImage,
+                title: rs.title,
+                desc: rs.__content,
+                prices: {
+                    regular: rs['price-regular'],
+                    old: rs['price-old'],
+                },
+            })
         }
     })()
 

@@ -58,7 +58,7 @@ exports.handler = async (event, context, callback) => {
     // Make sure method is GET
     try {
         // Run
-        const body = await getResponseBody(event.path.replace('/product/', ''))
+        const body = await getResponseBody(event.path.replace('/.netlify/functions/product/', ''))
 
         return {
             statusCode: 200,

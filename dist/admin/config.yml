@@ -8,32 +8,56 @@ media_folder: 'public/images/uploads' # Media files will be stored in the repo u
 public_folder: '/images/uploads' # The src attribute for uploaded media will begin with /images/uploads
 
 collections: # A list of collections the CMS should be able to edit
-    - name: products
-      label: Product
-      editor:
-          preview: true
-      folder: content/products
-      slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
-      create: true # Allow users to create new documents in this collection
-      fields: # The fields each document in this collection have
-          - { label: Title, name: title, widget: string }
-          - { label: Product Featured Image, name: productFeaturedImage, widget: image, required: false }
-          - label: "Regular Price"
-            name: "price-regular"
-            widget: "number"
-            default: 0000
-            valueType: "int"
-            min: 1000
-            max: 99999999999999
-            step: 1000
-            required: true
-          - label: "Old Price"
-            name: "price-old"
-            widget: "number"
-            default: 0000
-            valueType: "int"
-            min: 1000
-            max: 99999999999999
-            step: 1000
-            required: false
-          - { label: Content, name: body, widget: markdown }
+  - name: 'pages'
+    label: 'Page'
+    delete: false # Prevent users from deleting documents in this collection
+    editor:
+        preview: true
+    files:
+        - file: 'content/pages/index.md'
+          label: 'About Page'
+          name: 'about-page'
+          fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Featured Image, name: featuredImage, widget: image }
+              - { label: Subtitle, name: subtitle, widget: markdown }
+              - { label: Section 1, name: section1, widget: markdown }
+              - { label: Section 2, name: section2, widget: markdown }
+              - label: 'Meta'
+                required: false
+                name: 'meta'
+                widget: 'object'
+                fields:
+                    - { label: Title, name: title, widget: string, required: false }
+                    - { label: Description, name: description, widget: text, required: false, pattern: ['.{,300}', 'Must not exceed 300 characters'] }
+                    - { label: Canonical Link, name: canonicalLink, widget: string, required: false }
+                    - { label: Noindex, name: noindex, widget: boolean, required: false }
+  - name: products
+    label: Product
+    editor:
+        preview: true
+    folder: content/products
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields each document in this collection have
+        - { label: Title, name: title, widget: string }
+        - { label: Product Featured Image, name: productFeaturedImage, widget: image, required: false }
+        - label: 'Regular Price'
+          name: 'price-regular'
+          widget: 'number'
+          default: 0000
+          valueType: 'int'
+          min: 1000
+          max: 99999999999999
+          step: 1000
+          required: true
+        - label: 'Old Price'
+          name: 'price-old'
+          widget: 'number'
+          default: 0000
+          valueType: 'int'
+          min: 1000
+          max: 99999999999999
+          step: 1000
+          required: false
+        - { label: Content, name: body, widget: markdown }

@@ -1,6 +1,6 @@
 # See https://github.com/netlify/netlify-cms/blob/master/example/config.yml
 backend:
-    name: git-gateway
+    name: test-repo
     repo: master
 
 # display_url: https://netlify-cms-react-starter.netlify.com # This url will display in the top-right of the CMS

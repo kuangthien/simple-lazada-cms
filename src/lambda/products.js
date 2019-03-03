@@ -3,7 +3,7 @@ const axios = require('axios')
 // intermediate between client and github apiv4
 
 const URL = `https://api.github.com/graphql`
-const accessToken = '70891ec7ce3170e21b9c79a2b5abbac3db0f48b8'
+const accessToken = 'c168223709b6b8d9eee968dcb64e24730109b143 '
 const yamlFront = require('yaml-front-matter')
 
 const getProductDetailData = fileName => {

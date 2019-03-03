@@ -1,27 +1,47 @@
-export async function handler(event, context, callback) {
-    try {
-        const headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Methods': '*',
-            'Access-Control-Max-Age': '2592000',
-            'Access-Control-Allow-Credentials': 'true',
-        }
+const axios = require('axios')
 
-        return {
-            isBase64Encoded: false,
+// serverless letlify lambda function,
+// intermediate between client and github apiv4
+
+exports.handler = (event, context, callback) => {
+    const URL = `https://api.github.com/graphql`
+    const accessToken = '83294b0892f9e650d275054ae98695efcc75ea5e '
+    const query = `
+    query {
+        repository(name: "simple-lazada-cms", owner: "kuangthien") {
+          object(expression: "master:package.json") {
+            ... on Blob {
+              text
+            }
+          }
+        }
+      }`
+
+    // Send json response to the react client app
+    const send = body => {
+        callback(null, {
             statusCode: 200,
-            body: JSON.stringify({ api_ok: true }),
+            body: JSON.stringify(body, null, 4),
+        })
+    }
+
+    // Perform API call
+    const getrepos = () => {
+        axios({
+            method: 'POST',
+            url: URL,
+            data: JSON.stringify({ query }),
             headers: {
-                ...headers,
+                Authorization: `Bearer ${accessToken}`,
             },
-        }
-    } catch (err) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ msg: err.message }),
-            // Could be a custom message or object i.e. JSON.stringify(err)
-        }
+        })
+            .then(res => send(JSON.parse(res.data.data.repository.object.text)))
+            .catch(err => send(err))
+    }
+
+    // Make sure method is GET
+    if (event.httpMethod == 'GET') {
+        // Run
+        getrepos()
     }
 }

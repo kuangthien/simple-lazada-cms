@@ -7,6 +7,14 @@ const yamlFront = require('yaml-front-matter')
 const URL = `https://api.github.com/graphql`
 const accessToken = process.env.GITHUB_TOKEN;
 
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Max-Age': '2592000',
+    'Access-Control-Allow-Credentials': 'true',
+}
 
 const getProductDetailData = fileName => {
     const query = `
@@ -85,9 +93,16 @@ exports.handler = async (event, context, callback) => {
     try {
         // Run
         const body = await getResponseBody()
+
         return {
             statusCode: 200,
             body: JSON.stringify(body, null, 4),
+
+            isBase64Encoded: false,
+            headers: {
+                ...headers,
+                'Content-Type': 'application/json',
+            },
         }
     } catch (e) {
         console.log(e) // output to netlify function log

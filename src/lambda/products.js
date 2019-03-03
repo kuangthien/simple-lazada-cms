@@ -1,10 +1,11 @@
 const axios = require('axios')
+const yamlFront = require('yaml-front-matter')
+
 // serverless letlify lambda function,
 // intermediate between client and github apiv4
 
 const URL = `https://api.github.com/graphql`
 const accessToken = 'c168223709b6b8d9eee968dcb64e24730109b143 '
-const yamlFront = require('yaml-front-matter')
 
 const getProductDetailData = fileName => {
     const query = `
@@ -37,7 +38,7 @@ const getResponseBody = async () => {
         for (let i = 0; i < listPath.length; i++) {
             rs = await getProductDetailData(listPath[i].name)
             list.push({
-                _id: listPath[i].name.replace('.md',''),
+                _id: listPath[i].name.replace('.md', ''),
                 imageUrl: rs.productFeaturedImage,
                 title: rs.title,
                 desc: rs.__content,

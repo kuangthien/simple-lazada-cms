@@ -5,8 +5,7 @@ const yamlFront = require('yaml-front-matter')
 // intermediate between client and github apiv4
 
 const URL = `https://api.github.com/graphql`
-const accessToken = '555b08f7398de19f0d03d026c2d7791fe4ab4596 '
-
+const accessToken = process.env.GITHUB_TOKEN;
 const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',

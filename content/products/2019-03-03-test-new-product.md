@@ -1,6 +1,6 @@
 ---
 title: test new product
-productFeaturedImage: /images/uploads/48382622_352661668616312_8398190462879399936_n.png
+productFeaturedImage: /images/uploads/doan-mon-an-viet-nam-qua-hinh-1388-4315-1469085365.jpg
 price-regular: 11111111
 price-old: 111111
 ---
